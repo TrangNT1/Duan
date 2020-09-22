@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main-layout}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <article layout:fragment="content">
+        <div class="container-fluid">
+            <h1 class="h3 mb-2 text-gray-800 mb-2">QUẢN LÝ SINH VIÊN</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 style="float:left" class="m-0 font-weight-bold text-primary">Danh sách Điểm</h6>
+                    <!-- <a style="float:right" class="btn btn-success" href="/diem/add/diem">THÊM MỚI</a> -->
+                    <a style="float:right" class="btn btn-success" href="/diemdanh/">THÊM MỚI</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Sinh viên</th>
+                                    <th>Môn học</th>
+                                    <th>Điểm</th>
+                                    <th>Giáo viên</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item:${LIST_DIEM}">
+                                    <td th:text="${item.id}"></td>
+                                    <td th:style="${item.sinhvien == null ? 'color:red;' : ''}" th:text="${item.sinhvien == null ? '--' : item.sinhvien.hovaten}"></td>
+                                    <td th:style="${item.monhoc == null ? 'color:red;' : ''}" th:text="${item.monhoc == null ? '--' : item.monhoc.tenmonhoc}"></td>
+                                    <td th:text="${item.diem}"></td>
+                                    <td th:style="${item.giaovien == null ? 'color:red;' : ''}" th:text="${item.giaovien  == null ? '--' : item.giaovien .fullname}"></td>
+                                    <td>
+                                        <div class="dropdown btn-custom">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                                <a class="dropdown-item color-icon-edit" th:href="@{'/diem/edit/'+${item.id}}"><i class="fas fa-edit mr-2"></i>Update</a>
+                                                <a class="dropdown-item color-icon-del" th:href="@{'/diem/delete/'+${item.id}}"><i class="far fa-trash-alt mr-2"></i>Delete</a>
+                                           
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <article layout:fragment="content">
+      <div class="container">
+      <div class="center">
+      	<h2>DANH SÁCH GIÁO VIÊN</h2>
+      	<h4><label th:text="'Xin Chào:'+${session.ID}"></label></h4>
+      	<a href="/giaovien/logout">Logout</a>
+      </div>
+        <div class="fl-right">
+	        <p><a class="btn btn-primary" href="/giaovien/">ADD GIAOVIEN</a></p>
+	       <span>Find: <input class="form-control" id="find" type="text"></span><button class="btn btn-primary" onclick="find()">Find</button>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+               <tr>
+                	<th>ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Fullname</th>
+                    <th>Diachi</th>
+                    <th>Phone</th>
+                    <th>Gioitinh</th>
+                    <th>Birthday</th>
+                    <th>Lophoc</th>
+                    <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+               <tr th:each="item:${LIST_GIAOVIEN}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.username}">NoNV</td>
+                    <td th:text="${item. password}"></td>
+                    <td th:text="${item.fullname}"></td>
+                    <td th:text="${item.diachi}"></td>
+                    <td th:text="${item.phone}"></td>
+                    <td><span th:text="${item.gioitinh}?'Nam':'Nu'">Nam</span></td>
+                     <td th:text="${item.birthday}"></td>
+                    <td th:style="${item.lophoc == null ? 'color:red;' : ''}" th:text="${item.lophoc == null ? '--' : item.lophoc.tenlop}"></td>            
+              <td>
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Action
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a style="color: green" class="dropdown-item" th:href="@{'/giaovien/edit/'+${item.id}}">Edit</a>
+                    <a style="color: red" class="dropdown-item" th:href="@{'/giaovien/delete/'+${item.id}}">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+     
+    </article>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+  <script type="text/javascript">
+	function find(){
+		let value = document.querySelector('#find').value;
+		document.location = '/giaovien/find/' + value;
+	}
+	
+</script>
+</html>
